@@ -48,6 +48,7 @@ class Image:
         x, y = next(iter_points)
         self.ctx.move_to(x, y)
         for x, y in iter_points:
+            #print(f"Add point {x}, {y}")
             self.ctx.line_to(x, y)
         self.ctx.stroke()
 

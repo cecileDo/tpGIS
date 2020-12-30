@@ -1,6 +1,5 @@
 ## reponse à la question 10
-import sys
-import codeFourni.server.database
+import database
 
 def get_like_nodes(regexp):
     like_val = f'{regexp}'

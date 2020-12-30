@@ -29,6 +29,7 @@ def execute_query(*args, **kwargs):
         # On récupère un objet curseur qui permet de parcourir
         # l'ensemble résultat à la manière d'un itérateur.
         connection, query, parameters = args[0], args[1], args[2:]
+        print (f'Mes params {connection}, {query}, {parameters} \n')         
         cursor = connection.cursor()        
 
         # On exécute la requête ici.

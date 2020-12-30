@@ -2,6 +2,7 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse as urlparse
+import tile
 
 PORT_NUMBER = 4242
 
@@ -11,12 +12,27 @@ class WMSHandler(BaseHTTPRequestHandler):
         if self.path.startswith("/wms"):
             # Ici on récupère les valeurs de paramètres GET
             params = urlparse.parse_qs(urlparse.urlparse(self.path).query)
-
-            # params contient tous les paramètres GET
-            # Il faut maintenant les traiter...
-            # ... C'est à vous !
-
-            return
+            print(f"params : {params}")
+            
+            acceptedParams= ['request','layers','height','width', 'srs','bbox' ]               
+            # check mandatories params
+            for mandatory in acceptedParams:
+                if not mandatory in params:
+                    self.send_error(422, f"Parametre obligatoire manquant : {mandatory}")
+            #check request GetMap
+            req = params.get('request','')
+            if req[0] != "GetMap":
+                self.send_error(404, f"Erreur mauvaise requete reçue: {req}. La seule requete acceptée est GetMap on ")            
+            bbox= params['bbox'][0].split(",")
+            if len(bbox) != 4:
+                self.send_error(422, f"Parametre bbox doit avoir 4 valeurs : {bbox}")
+            srs = int(params['srs'][0].split(":")[1])
+            mytile = tile.Tile(x_min=float(bbox[0]), y_min=float(bbox[1]), x_max= float(bbox[2]),y_max= float(bbox[3]), 
+                    srid=srs, width= int(params['width'][0]) , height=int(params['height'][0]))
+            mytile.get_highway()
+            imgToSave = 'test_highway.png'
+            mytile.img.save(imgToSave)
+            self.send_png_image(imgToSave)
 
         self.send_error(404, 'Fichier non trouvé : %s' % self.path)
 
