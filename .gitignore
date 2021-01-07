@@ -1,0 +1,5 @@
+.vscode
+build
+venv
+output
+.pytest_cache

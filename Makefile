@@ -7,8 +7,9 @@ venv: venv/touchfile
 venv/touchfile::
 	python3 -m pip install --user virtualenv
 	test -d venv || virtualenv venv; \
-	source venv/bin/activate; pip install -Ur requirements.txt; \
-	touch venv/touchfile
+	source venv/bin/activate; python3 -m pip install --upgrade pip ; pip install -Ur requirements.txt; \
+	touch venv/touchfile; \
+	echo "type source venv/bin/activate to activate virtual env"
 
 venv_end: 
 	deactivate 
@@ -16,15 +17,15 @@ venv_end:
 dependencies:
 	$(PIP) install --exists-action w -r requirements.txt
 
-get_nodes:venv dependencies
+get_nodes: 
 	@read -p "Enter search regexp:" regexp; \
 	cd osm/server; \
 	python3 -c "import get_like_nodes; get_like_nodes.get_like_nodes('$${regexp}') " ;
 
-get_highway_example: venv	
+get_highway_example: 	
 	cd osm/server; \
 	python3 -c "import tile; tile.get_highway_fixed() " ;	
 
-run_WMS: venv
+run_WMS: 
 	cd osm/server; \
 	python3 WMSserver.py
