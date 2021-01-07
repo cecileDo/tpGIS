@@ -16,6 +16,7 @@ sudo apt install libcairo2-dev pkg-config python3-dev
 git clone https://github.com/cecileDo/tpGIS.git
 cd tpGIS
 make venv
+make dependencies
 ```
 
 ## reponses aux questions
