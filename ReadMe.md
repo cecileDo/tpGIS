@@ -7,7 +7,7 @@ __________________
 
 Vous trouverez ci-dessous mes réponses Au TP OpenStreetMap partie II python ainsi que le code et les résultats obtenus.
 
-## fonctionnalités in fine
+## Fonctionnalités in fine
 
 Cette application permet de:
 
@@ -15,11 +15,11 @@ Cette application permet de:
 
 * lancer un serveur de tuile, avec ou sans cache qui sert des couches contenant les routes et les sommets sur un fond de carte.
 
-## architecture
+## Architecture
 
 Un fichier Makefile permet de rapidement créer l'environnement virtuel python avec les librairies nécessaire, jouer les réponses aux questions, lancer les serveurs
 
-### coté serveur
+### Coté serveur
 
 Un serveur WEB qui peut être lancé en deux modes différents : avec ou sans cache.  
 Si le serveur est lancé sans cache, il interroge la classe **Tile** qui crée une tuile de la taille demandée, contenant les informations de la couche désirée,
@@ -27,12 +27,12 @@ Si le serveur est lancé sans cache, il interroge la classe **Tile** qui crée u
 
 Si le serveur est lancé en mode cache, il interroge la classe **Cache**. Celle-ci cherche dans son cache (répertoire contenant les images) la tuile correspondante à la demande (même boite, couche, srid, taille de tuile), si la tuile existe, elle est renvoyée, sinon elle est demandée à la classe **Tile** comme le ferait le serveur sans cache, puis enregistrée dans le cache avant des renvoyée.
 
-### coté client
+### Coté client
 
 Une page HTML instancie un contenu fourni par le script map.js  
 Le script map.js utilise l'api leaflet pour demander et afficher des tuiles de chaque couche de manière optimisée.
 
-## installation
+## Installation
 
 Pour installer et créer l'environnement permettant d'exécuter les scripts du tp:
 
