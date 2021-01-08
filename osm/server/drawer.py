@@ -84,8 +84,8 @@ class Image:
 
         :param x0: abscisse du premier sommet
         :param y0: ordonnée du premier sommet
-        :param x1: abscisse du second sommet
-        :param y1: ordonnée du second sommet
+        :param width: largeur du rectangle
+        :param height: hauteur du rectangle
         :param stroke: quadruplet représentant la couleur de ligne RGBA
         :param fill: quadruplet représentant la couleur de remplissage RGBA
         """

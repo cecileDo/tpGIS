@@ -42,11 +42,12 @@ git clone https://github.com/cecileDo/tpGIS.git
 cd tpGIS
 make venv
 source venv/bin/activate
+make dependencies
 ```
 
 ## Réponses aux questions du tp
 
-Toutes les commandes décrites ci-dessous sont lancées dans l'environnement installé virtuel précédemment.
+Toutes les commandes décrites ci-dessous sont lancées dans l'environnement virtuel installé précédemment.
 
 ### Interrogation de la base de données avec psycopg2 et posgis
 
@@ -122,14 +123,27 @@ les noms de fichiers sont ensuite construits de la manière suivante:
 Par exemple:  
 621280-1659019126_5635549-221409476_626172-1357121639_5640441-191219728_3857_256_256.PNG
 
-### Nouvelle couche
+### Ajout d'une nouvelle couche
+
+>Question 15 : Créez d'autres couches (que vous pouvez rendre accessible également par le biais de votre serveur WMS) et ajoutez-les à votre client Leaflet. Quelques suggestions : ensemble des bâtiments, hydrographie (rivières, etc.), ensemble des pistes de ski autour de Grenoble, etc.
 
 Pour cet exercice, j'ai choisi de représenter les sommets, avec un rectangle plus ou moins gros selon l'altitude.
 Leurs noms sont aussi affichés.  
 
+Le script osm/client/map.js a été modifié pour afficher une nouvelle couche qui n'est pas activée pas défaut.
+Une nouvelle méthode get_peaks() est ajoutée au serveur de tuile et appelée lorsque la couche demandée est "peaks".
+
 Pour activer la couche dans le navigateur cocher la couche sommets:
 
 ![alt text](img/Rendu.png  "Resultat final")
+
+**Remarques sur la réalisation:**  
+
+* Certaines couleurs n'ont pas pu être utilisées (orange par exemple), car elles ne fonctionnent pas, je n'ai pas compris pourquoi.
+
+* Les noms des sommets se chevauchent parfois, il aurait fallu utiliser une autre méthode pour les représenter ( Gliph ?)
+
+* La méthode drawer.draw_rectangle() contenait une coquille dans les noms des paramètres ( x1, y1 au lieux de width, heigth) elle a été modifiée.
 
 ### Annexe résultat test d'erreur du serveur
 
