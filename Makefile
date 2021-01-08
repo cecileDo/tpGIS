@@ -29,3 +29,7 @@ get_highway_example:
 run_WMS: 
 	cd osm/server; \
 	python3 WMSserver.py
+
+run_WMS_cached: 
+	cd osm/server; \
+	python3 WMSserver.py cached # pas sure

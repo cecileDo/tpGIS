@@ -51,6 +51,9 @@ class Cache:
 
      
     def get_tileFileName(self,layers, x_min ,y_min,x_max,y_max,srid,width, height):
+        '''
+        build and return file name with all informations without .
+        '''
         fileName= f"{x_min}_{y_min}_{x_max}_{y_max}_{srid}_{width}_{height}"
         mytile = Path(f"{self.dir}/{layers}/{fileName.replace('.','-')}.PNG")
         print (f"Image save to {mytile}")

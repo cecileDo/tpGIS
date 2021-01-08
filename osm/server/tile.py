@@ -45,7 +45,6 @@ class Tile:
             %s, %s, 
             %s, %s, 
             %s),4326) ~ linestring ;"""  
-        #print(f"request :{request}, srid {self.srid}")
         cursor = database.execute_query(request,self.srid, self.xFactor,self.yFactor ,self.x_offset,self.y_offset,self.x_min, self.y_min,self.x_max, self.y_max,self.srid )
 
         for row in cursor:
@@ -97,7 +96,7 @@ def get_color(highway):
     switcher={
             'service':'grey',
             'residential':'blue',
-            'tertiary':'yellow',
+            'tertiary':'black',
             'motorway_link':'red',
             'motorway':'red',
             'cycleway' :'green'
@@ -126,7 +125,7 @@ def get_highway_fixed():
     '''
     methode de test pour la fonction get_highway()
     '''
-    mytile = Tile(5.7, 45.1, 5.8, 45.2, 4326, 600 , 600)
+    mytile = Tile(5.7, 45.1, 5.75, 45.15, 4326, 200 , 200)
     mytile.get_highway()
     imgToSave = 'test_highway.png'
     mytile.img.save(imgToSave)

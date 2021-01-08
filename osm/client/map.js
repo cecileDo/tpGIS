@@ -21,7 +21,8 @@ var CartoDB_Positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 var baseMaps = {"Fond de carte":  CartoDB_Positron};
 map.addLayer(CartoDB_Positron);
 var overlayMaps = {
-    "Routes": roads
+    "Routes": roads,
+    "Sommets": peaks
 };
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 map.addLayer(roads);

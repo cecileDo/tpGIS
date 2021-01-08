@@ -3,3 +3,4 @@ build
 venv
 output
 .pytest_cache
+osm/server/__cache__

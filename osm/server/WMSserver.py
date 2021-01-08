@@ -33,18 +33,24 @@ class WMSHandler(BaseHTTPRequestHandler):
             # check mandatories params
             for mandatory in ['request','layers','height','width', 'srs','bbox' ] :
                 if not mandatory in params:
-                    self.send_error(422, f"Parametre obligatoire manquant : {mandatory}")
+                    self.send_error(422, f"Parametre obligatoire manquant : {mandatory}")                    
+                    return
 
             # check request GetMap
-            req = params.get('request','')
-            if req[0] != "GetMap":
-                self.send_error(404, f"Erreur mauvaise requete reçue: {req}. La seule requete acceptée est GetMap on ")  
+            req = params['request'][0]
+            if req != "GetMap":
+                self.send_error(404, f"Erreur mauvaise requete reçue: {req}. La seule requete acceptée est GetMap")  
+                
             
             # check bbox          
             bbox= params['bbox'][0].split(",")
             if len(bbox) != 4:
                 self.send_error(422, f"Parametre bbox doit avoir 4 valeurs : {bbox}")
 
+            # check layers
+            layers=params['layers'][0]
+            if layers not in {'roads','peaks'}:
+                self.send_error(422, f"Parametre layers doit etre soit roads soit peaks : {layers}")
             # srid
             srs = params['srs'][0]
             if srs.isdigit():
@@ -53,10 +59,10 @@ class WMSHandler(BaseHTTPRequestHandler):
                 srid= int(srs.split(":")[1])
             
             if self.cached:           
-                mytile = self.cache.get_tile(layers=params['layers'][0], x_min=float(bbox[0]), y_min=float(bbox[1]), x_max= float(bbox[2]),y_max= float(bbox[3]), 
+                mytile = self.cache.get_tile(layers=layers, x_min=float(bbox[0]), y_min=float(bbox[1]), x_max= float(bbox[2]),y_max= float(bbox[3]), 
                     srid=srid, width= int(params['width'][0]) , height=int(params['height'][0]))
             else:               
-              mytile= tile.get_tile(layers=params['layers'][0],x_min=float(bbox[0]), y_min=float(bbox[1]), x_max= float(bbox[2]),y_max= float(bbox[3]),
+              mytile= tile.get_tile(layers=layers,x_min=float(bbox[0]), y_min=float(bbox[1]), x_max= float(bbox[2]),y_max= float(bbox[3]),
                     srid=srid, width= int(params['width'][0]) , height=int(params['height'][0]),name="atile")              
             self.send_png_image(mytile)
 
